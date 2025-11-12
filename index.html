@@ -5,93 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Goden Peace - GPC</title>
 <style>
-    /* ===== عام ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg,#f0f0f0,#e0f0f5); color: #333; overflow-x: hidden; scroll-behavior: smooth; }
-    header { text-align: center; padding: 40px 20px; background: #003366; color: #fff; position: sticky; top:0; z-index: 100; }
-    .logo { width: 120px; display: block; margin: 0 auto 20px; border-radius: 50%; animation: bounce 2s infinite; }
+/* ===== Global ===== */
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; scroll-behavior: smooth; background: linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:#fff; overflow-x:hidden; transition: background 0.5s;}
+a { text-decoration:none; color: inherit; }
 
-    h1, h2 { color: #003366; }
-    h1 { font-size: 2.5em; margin-bottom: 15px; }
-    h2 { font-size: 2em; margin-bottom: 10px; }
+/* ===== Header ===== */
+header { position: sticky; top:0; z-index:1000; padding: 30px 20px; text-align:center; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); border-bottom:1px solid rgba(255,255,255,0.1); }
+header h1 { font-size:2.8em; margin-bottom:10px; background: linear-gradient(90deg,#ff6a00,#ee0979); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeInDown 1s ease forwards; }
+.logo { width:120px; margin:auto; display:block; border-radius:50%; animation: bounce 2s infinite; }
 
-    main { padding: 40px 20px; text-align: center; }
+/* ===== Language Toggle ===== */
+.lang-toggle { position:absolute; top:20px; right:20px; background: rgba(255,255,255,0.2); border:none; padding:10px 20px; border-radius:30px; cursor:pointer; color:#fff; font-weight:bold; transition:0.3s; }
+.lang-toggle:hover { background: rgba(255,255,255,0.5); }
 
-    /* ===== أزرار ===== */
-    .btn {
-        display: inline-block; padding: 15px 30px; margin: 15px;
-        background: #0066cc; color: #fff; text-decoration: none; border-radius: 8px;
-        font-weight: bold; font-size: 1em; transition: all 0.3s ease; cursor: pointer; border: none;
-    }
-    .btn:hover { background: #004c99; transform: translateY(-2px); }
+/* ===== Buttons ===== */
+.btn { padding:15px 30px; margin:10px; background: linear-gradient(135deg,#ff6a00,#ee0979); border:none; border-radius:10px; font-weight:bold; font-size:1em; cursor:pointer; transition:0.3s; }
+.btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(255,255,255,0.3); }
 
-    .back-btn { background: #999; }
-    .back-btn:hover { background: #666; }
+/* ===== Sections ===== */
+section { padding:80px 20px; text-align:center; }
+.content-box { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border-radius:20px; max-width:900px; margin:auto; padding:40px; margin-bottom:60px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); opacity:0; transform:translateY(50px); transition:0.8s; }
 
-    footer { background: #003366; color: #fff; padding: 15px 0; text-align: center; }
+/* ===== Modal ===== */
+.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index:2000; }
+.modal-content { background:#111; margin:5% auto; padding:40px; border-radius:20px; max-width:900px; position:relative; color:#fff; box-shadow: 0 10px 50px rgba(0,0,0,0.7);}
+.close { position:absolute; top:15px; right:20px; font-size:2em; cursor:pointer; transition:0.3s; }
+.close:hover { color:#ff6a00; }
 
-    /* ===== الأقسام ===== */
-    section { margin: 60px 0; }
-    .content-box { background: #fff; border-radius: 10px; padding: 30px; margin: 20px auto; max-width: 900px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: transform 0.5s, opacity 0.5s; opacity: 0; transform: translateY(50px);}
-    .content-box.visible { opacity:1; transform: translateY(0); }
+/* ===== Animations ===== */
+@keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
+@keyframes fadeInDown { 0%{opacity:0; transform:translateY(-50px);} 100%{opacity:1; transform:translateY(0);} }
 
-    /* ===== Modal ===== */
-    .modal { display: none; position: fixed; z-index: 1000; left:0; top:0; width:100%; height:100%; overflow:auto; background: rgba(0,0,0,0.7); }
-    .modal-content { background:#fff; margin:5% auto; padding:30px; border-radius:10px; max-width:900px; position:relative; }
-    .close { position:absolute; top:15px; right:20px; font-size:2em; font-weight:bold; color:#333; cursor:pointer; transition:color 0.3s; }
-    .close:hover { color:#0066cc; }
+/* ===== Footer ===== */
+footer { text-align:center; padding:20px; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); border-top:1px solid rgba(255,255,255,0.1); }
 
-    /* ===== Animations ===== */
-    @keyframes bounce { 0%,100% {transform: translateY(0);} 50% {transform: translateY(-15px);} }
+/* ===== Responsive ===== */
+@media(max-width:768px){ h1{font-size:2em;} .btn{padding:12px 25px;} }
 </style>
 </head>
 <body>
 
-<!-- الصفحة الرئيسية -->
 <header>
     <img src="https://via.placeholder.com/120?text=GPC" alt="GPC Logo" class="logo">
-    <h1>Goden Peace - GPC</h1>
-    <p>مشروع العملة الرقمية للسلام العالمي والابتكار الاقتصادي</p>
-    <button class="btn" onclick="scrollToSection('about')">ابدأ الاستكشاف</button>
-    <button class="btn" onclick="openModal('whitepaperModal')">الورقة البيضاء</button>
+    <h1 data-lang-ar="Goden Peace - GPC" data-lang-en="Goden Peace - GPC">Goden Peace - GPC</h1>
+    <p data-lang-ar="مشروع العملة الرقمية للسلام العالمي" data-lang-en="Digital Currency Project for Global Peace">مشروع العملة الرقمية للسلام العالمي</p>
+    <button class="btn" onclick="scrollToSection('about')" data-lang-ar="ابدأ الاستكشاف" data-lang-en="Start Exploring">ابدأ الاستكشاف</button>
+    <button class="btn" onclick="openModal('whitepaperModal')" data-lang-ar="الورقة البيضاء" data-lang-en="White Paper">الورقة البيضاء</button>
+    <button class="lang-toggle" onclick="toggleLang()">EN/AR</button>
 </header>
 
 <main>
 
-    <!-- قسم التعريف بالمشروع -->
-    <section id="about">
-        <div class="content-box">
-            <h2>عن مشروع Goden Peace</h2>
-            <p>Goden Peace هو مشروع عملة رقمية مبتكر يهدف إلى دعم السلام العالمي وتمويل المشاريع الاجتماعية المستدامة. يعتمد المشروع على نظام ذكي لإدارة العملات الرقمية ويضمن الشفافية والأمان لجميع المشاركين.</p>
-        </div>
-    </section>
+<section id="about">
+    <div class="content-box" data-lang-ar="Goden Peace هو مشروع عملة رقمية مبتكر يهدف إلى دعم السلام العالمي وتمويل المشاريع الاجتماعية المستدامة." data-lang-en="Goden Peace is an innovative crypto project aimed at supporting global peace and funding sustainable social projects.">Goden Peace هو مشروع عملة رقمية مبتكر يهدف إلى دعم السلام العالمي وتمويل المشاريع الاجتماعية المستدامة.</div>
+</section>
 
-    <!-- قسم الـ Burn -->
-    <section id="burn">
-        <div class="content-box">
-            <h2>عملية الـ Burn</h2>
-            <p>الـ Burn هي عملية إزالة جزء من العملات من التداول بشكل دائم، مما يزيد قيمة العملات المتبقية ويخلق ندرة طبيعية. كل عملية Burn تتم بشفافية ويتم الإعلان عنها على البلوكتشين.</p>
-        </div>
-    </section>
+<section id="burn">
+    <div class="content-box" data-lang-ar="الـ Burn هي عملية إزالة جزء من العملات من التداول لزيادة القيمة وخلق ندرة." data-lang-en="Burn is the process of permanently removing a portion of tokens from circulation to increase value and create scarcity.">الـ Burn هي عملية إزالة جزء من العملات من التداول لزيادة القيمة وخلق ندرة.</div>
+</section>
 
-    <!-- Roadmap -->
-    <section id="roadmap">
-        <div class="content-box">
-            <h2>خطة المشروع (Roadmap)</h2>
-            <p>1. إطلاق العملة الرقمية GPC<br>
-               2. تمويل المشاريع الاجتماعية<br>
-               3. تطبيق نظام الـ Burn الدوري<br>
-               4. إنشاء شراكات عالمية لدعم السلام</p>
-        </div>
-    </section>
+<section id="roadmap">
+    <div class="content-box" data-lang-ar="خارطة الطريق: 1. إطلاق العملة 2. تمويل المشاريع الاجتماعية 3. تطبيق الـ Burn 4. شراكات عالمية" data-lang-en="Roadmap: 1. Launch token 2. Fund social projects 3. Implement Burn 4. Global partnerships">خارطة الطريق: 1. إطلاق العملة 2. تمويل المشاريع الاجتماعية 3. تطبيق الـ Burn 4. شراكات عالمية</div>
+</section>
 
-    <!-- الرؤية والهدف -->
-    <section id="vision">
-        <div class="content-box">
-            <h2>رؤيتنا للسلام والابتكار</h2>
-            <p>نسعى من خلال GPC إلى تمكين المجتمعات، دعم المشاريع البيئية والاجتماعية، وتحقيق نمو اقتصادي مستدام مع الحفاظ على القيم الإنسانية.</p>
-        </div>
-    </section>
+<section id="vision">
+    <div class="content-box" data-lang-ar="رؤيتنا: تمكين المجتمعات، دعم المشاريع البيئية والاجتماعية، وتحقيق نمو اقتصادي مستدام." data-lang-en="Our vision: Empower communities, support environmental and social projects, and achieve sustainable economic growth.">رؤيتنا: تمكين المجتمعات، دعم المشاريع البيئية والاجتماعية، وتحقيق نمو اقتصادي مستدام.</div>
+</section>
 
 </main>
 
@@ -99,43 +79,49 @@
     <p>&copy; 2025 Goden Peace</p>
 </footer>
 
-<!-- الورقة البيضاء Modal -->
+<!-- Modal الورقة البيضاء -->
 <div id="whitepaperModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('whitepaperModal')">&times;</span>
-        <h1>الورقة البيضاء لمشروع Goden Peace (GPC)</h1>
-        <div class="content-box" style="opacity:1; transform:translateY(0); max-height:400px; overflow-y:auto; text-align:right;">
-            <p>مرحبًا بك في الورقة البيضاء لمشروع Goden Peace.</p>
-            <p>تتضمن الورقة البيضاء شرحًا مفصلًا عن أهداف المشروع، تقنية العملة الرقمية، نظام الـ Burn، خطط التمويل، وخارطة الطريق لتحقيق السلام والابتكار.</p>
-            <p>يمكنك تحميل النسخة الكاملة بصيغة PDF لمزيد من التفاصيل.</p>
+        <h2 data-lang-ar="الورقة البيضاء لمشروع Goden Peace" data-lang-en="White Paper for Goden Peace">الورقة البيضاء لمشروع Goden Peace</h2>
+        <div class="content-box" style="opacity:1; transform:translateY(0); max-height:400px; overflow-y:auto; text-align:right;" data-lang-ar="تتضمن الورقة البيضاء شرحا مفصلا عن الأهداف ونظام الـ Burn وخارطة الطريق." data-lang-en="The white paper includes a detailed explanation of goals, Burn system, and roadmap.">
+            تتضمن الورقة البيضاء شرحا مفصلا عن الأهداف ونظام الـ Burn وخارطة الطريق.
         </div>
-        <a href="GPC-WhitePaper.pdf" target="_blank" class="btn">تحميل PDF</a>
-        <button class="btn back-btn" onclick="closeModal('whitepaperModal')">إغلاق</button>
+        <a href="GPC-WhitePaper.pdf" target="_blank" class="btn" data-lang-ar="تحميل PDF" data-lang-en="Download PDF">تحميل PDF</a>
+        <button class="btn back-btn" onclick="closeModal('whitepaperModal')" data-lang-ar="إغلاق" data-lang-en="Close">إغلاق</button>
     </div>
 </div>
 
 <script>
-    // ظهور الأقسام عند التمرير
-    const boxes = document.querySelectorAll('.content-box');
-    window.addEventListener('scroll', () => {
-        boxes.forEach(box => {
-            const rect = box.getBoundingClientRect();
-            if(rect.top < window.innerHeight - 100) { box.classList.add('visible'); }
-        });
+// ظهور الأقسام عند التمرير
+const boxes = document.querySelectorAll('.content-box');
+window.addEventListener('scroll', ()=>{
+    boxes.forEach(box=>{
+        const rect = box.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 100) box.style.opacity='1', box.style.transform='translateY(0)';
     });
+});
 
-    // Modal
-    function openModal(id){ document.getElementById(id).style.display='block'; }
-    function closeModal(id){ document.getElementById(id).style.display='none'; }
-    window.onclick = function(event){
-        const modal = document.getElementById('whitepaperModal');
-        if(event.target == modal){ modal.style.display='none'; }
-    }
+// Modal
+function openModal(id){ document.getElementById(id).style.display='block'; }
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+window.onclick = function(event){
+    const modal = document.getElementById('whitepaperModal');
+    if(event.target==modal) modal.style.display='none';
+}
 
-    // Scroll smooth
-    function scrollToSection(id){
-        document.getElementById(id).scrollIntoView({behavior:'smooth'});
-    }
+// Scroll
+function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+// Toggle Language
+let lang = 'ar';
+function toggleLang(){
+    lang = lang==='ar'?'en':'ar';
+    document.querySelectorAll('[data-lang-ar]').forEach(el=>{
+        el.innerText = lang==='ar'?el.getAttribute('data-lang-ar'):el.getAttribute('data-lang-en');
+        if(lang==='en') el.style.direction='ltr'; else el.style.direction='rtl';
+    });
+}
 </script>
 
 </body>
